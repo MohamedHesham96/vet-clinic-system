@@ -9,5 +9,5 @@ import java.util.List;
 public interface PetRepository extends JpaRepository<Pet, Integer> {
 
     @Query("SELECT p FROM Pet p where p.owner.id = :ownerId")
-    List<Pet> findByOwnerId(Integer ownerId);
+    List<Pet> findAllByOwnerId(Integer ownerId);
 }

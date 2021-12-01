@@ -11,5 +11,5 @@ import java.util.List;
 public interface DoctorRepository extends JpaRepository<Doctor, Integer> {
 
     @Query("SELECT d FROM Doctor d where d.clinic.id = :clinicId")
-    List<Clinic> findByClinicId(Integer clinicId);
+    List<Doctor> findAllByClinicId(Integer clinicId);
 }

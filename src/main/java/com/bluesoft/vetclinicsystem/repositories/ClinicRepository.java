@@ -11,5 +11,5 @@ public interface ClinicRepository extends JpaRepository<Clinic, Integer> {
     @Query("SELECT c FROM Clinic c where" +
             " (:phone is null or c.phone like concat('%', :phone, '%'))" +
             " and (:address is null or c.address like concat('%', :address, '%'))")
-    List<Clinic> findByClinicId(String phone, String address);
+    List<Clinic> findByPhoneAndAddress(String phone, String address);
 }
