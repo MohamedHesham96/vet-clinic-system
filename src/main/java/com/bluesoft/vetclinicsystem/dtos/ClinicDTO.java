@@ -1,19 +1,35 @@
 package com.bluesoft.vetclinicsystem.dtos;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class ClinicDTO {
 
     private int id;
 
+    @NotNull(message = "Clinic name is required")
+    @NotBlank(message = "Clinic name is required")
+    @Size(max = 50, message = "Clinic name max size is 50")
     private String name;
 
+    @NotNull(message = "Clinic address is required")
+    @NotBlank(message = "Clinic address is required")
+    @Size(max = 100, message = "Clinic address max size is 11")
     private String address;
 
+    @NotNull(message = "Clinic phone is required")
+    @NotBlank(message = "Clinic phone is required")
+    @Size(max = 11, message = "Clinic phone max size is 11")
     private String phone;
 
+    @Size(max = 100, message = "Clinic workingDaysHours max size is 11")
     private String workingDaysHours;
 
+    @Size(max = 100, message = "Clinic email max size is 11")
     private String email;
 
+    @Size(max = 500, message = "Clinic socialNetworksUrls max size is 11")
     private String socialNetworksUrls;
 
     public int getId() {

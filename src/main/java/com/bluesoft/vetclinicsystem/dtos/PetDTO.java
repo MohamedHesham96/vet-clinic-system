@@ -1,21 +1,34 @@
 package com.bluesoft.vetclinicsystem.dtos;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class PetDTO {
 
     private int id;
 
+    @NotNull(message = "Pet name is required")
+    @NotBlank(message = "Pet name is required")
+    @Size(max = 50, message = "Pet name max size is 50")
     private String name;
 
+    @Size(max = 6, message = "Pet gender max size is 6")
     private String gender;
 
     private String dateOfBirth;
 
+    @Size(max = 6, message = "Pet animal kind max size is 50")
     private String animalKind;
 
+    @Size(max = 500, message = "Pet animal kind max size is 500")
     private String photos;
 
+    @Max(value = 999, message = "Weight max value is 999")
     private Double weight;
 
+    @NotNull(message = "Pet owner is required")
     private Integer ownerId;
 
     public int getId() {

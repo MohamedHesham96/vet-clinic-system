@@ -11,9 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/doctors")
-public class DoctorController {
+public class DoctorController extends BaseController{
 
     @Autowired
     private DoctorService doctorService;
@@ -22,7 +24,7 @@ public class DoctorController {
     private ClinicService clinicService;
 
     @GetMapping("/{doctorId}")
-    public ResponseEntity<?> getDoctor(@PathVariable Integer doctorId) {
+    public ResponseEntity<?> getDoctor(@Valid @PathVariable Integer doctorId) {
         try {
             Doctor doctor = doctorService.getDoctor(doctorId);
             if (doctor == null) {
@@ -35,7 +37,7 @@ public class DoctorController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createDoctor(@RequestBody DoctorDTO doctorDTO) {
+    public ResponseEntity<?> createDoctor(@Valid @RequestBody DoctorDTO doctorDTO) {
         try {
             Clinic clinic = clinicService.getClinic(doctorDTO.getClinicId());
             if (clinic == null) {

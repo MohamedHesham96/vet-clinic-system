@@ -1,13 +1,18 @@
 package com.bluesoft.vetclinicsystem.dtos;
 
+import javax.validation.constraints.NotNull;
+
 public class VisitDTO {
 
     private int id;
 
+    @NotNull(message = "Pet is required")
     private Integer petId;
 
+    @NotNull(message = "Doctor is required")
     private Integer doctorId;
 
+    @NotNull(message = "Clinic is required")
     private Integer clinicId;
 
     public int getId() {

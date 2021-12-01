@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/pets")
-public class PetController {
+public class PetController extends BaseController {
 
     @Autowired
     private PetService petService;
@@ -26,7 +28,7 @@ public class PetController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createPet(@RequestBody PetDTO petDTO) {
+    public ResponseEntity<?> createPet(@Valid @RequestBody PetDTO petDTO) {
         try {
             Pet savedPet = petService.savePet(petDTO);
             return ResponseEntity.ok(savedPet);

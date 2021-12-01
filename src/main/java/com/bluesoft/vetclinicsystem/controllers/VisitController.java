@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/visits")
-public class VisitController {
+public class VisitController extends BaseController{
 
     @Autowired
     private VisitService visitService;
@@ -26,7 +28,7 @@ public class VisitController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createVisit(@RequestBody VisitDTO visitDTO) {
+    public ResponseEntity<?> createVisit(@Valid @RequestBody VisitDTO visitDTO) {
         try {
             Visit savedVisit = visitService.saveVisit(visitDTO);
             return ResponseEntity.ok(savedVisit);

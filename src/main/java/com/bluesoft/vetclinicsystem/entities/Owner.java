@@ -1,6 +1,9 @@
 package com.bluesoft.vetclinicsystem.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "OWNER")
@@ -24,6 +27,11 @@ public class Owner {
 
     @Column(name = "ADDRESS")
     private String address;
+
+    @OneToMany(mappedBy = "owner")
+    @JsonIgnore
+    List<Pet> pets;
+
 
     public Owner() {
     }
@@ -78,5 +86,13 @@ public class Owner {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public List<Pet> getPets() {
+        return pets;
+    }
+
+    public void setPets(List<Pet> pets) {
+        this.pets = pets;
     }
 }

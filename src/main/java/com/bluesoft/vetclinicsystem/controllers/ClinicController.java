@@ -7,14 +7,20 @@ import com.bluesoft.vetclinicsystem.entities.common.DefaultResponse;
 import com.bluesoft.vetclinicsystem.services.ClinicService;
 import com.bluesoft.vetclinicsystem.services.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/clinics")
-public class ClinicController {
+public class ClinicController extends BaseController{
 
     @Autowired
     private ClinicService clinicService;
@@ -33,7 +39,7 @@ public class ClinicController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createClinic(@RequestBody ClinicDTO clinicDTO) {
+    public ResponseEntity<?> createClinic(@Valid @RequestBody ClinicDTO clinicDTO) {
         try {
             Clinic savedClinic = clinicService.saveClinic(clinicDTO);
             return ResponseEntity.ok(savedClinic);

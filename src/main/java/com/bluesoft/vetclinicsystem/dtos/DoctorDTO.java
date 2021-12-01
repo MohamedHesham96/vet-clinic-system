@@ -1,17 +1,28 @@
 package com.bluesoft.vetclinicsystem.dtos;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class DoctorDTO {
 
     private int id;
 
+    @NotNull(message = "Doctor name is required")
+    @NotBlank(message = "Doctor name is required")
+    @Size(max = 50, message = "Doctor name max size is 50")
     private String name;
 
+    @NotNull(message = "Doctor phone is required")
+    @NotBlank(message = "Doctor phone is required")
+    @Size(max = 11, message = "Doctor phone max size is 11")
     private String phone;
 
     private String photo;
 
     private String bio;
 
+    @NotNull(message = "Doctor clinic is required")
     private Integer clinicId;
 
     private ClinicDTO clinic;

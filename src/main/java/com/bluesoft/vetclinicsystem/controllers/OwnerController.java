@@ -10,11 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/owners")
-public class OwnerController {
+public class OwnerController extends BaseController{
 
     @Autowired
     private OwnerService ownerService;
@@ -33,7 +34,7 @@ public class OwnerController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createOwner(@RequestBody OwnerDTO ownerDTO) {
+    public ResponseEntity<?> createOwner(@Valid @RequestBody OwnerDTO ownerDTO) {
         try {
             Owner savedOwner = ownerService.saveOwner(ownerDTO);
             return ResponseEntity.ok(savedOwner);
