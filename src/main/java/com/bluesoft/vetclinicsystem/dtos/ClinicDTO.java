@@ -1,28 +1,19 @@
 package com.bluesoft.vetclinicsystem.dtos;
 
-import com.googlecode.jmapper.annotations.JMap;
-
 public class ClinicDTO {
 
-    @JMap
     private int id;
 
-    @JMap
     private String name;
 
-    @JMap
     private String address;
 
-    @JMap
     private String phone;
 
-    @JMap
     private String workingDaysHours;
 
-    @JMap
     private String email;
 
-    @JMap
     private String socialNetworksUrls;
 
     public int getId() {

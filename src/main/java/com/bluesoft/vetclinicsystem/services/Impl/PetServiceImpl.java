@@ -1,6 +1,7 @@
 package com.bluesoft.vetclinicsystem.services.Impl;
 
 import com.bluesoft.vetclinicsystem.dtos.PetDTO;
+import com.bluesoft.vetclinicsystem.entities.Owner;
 import com.bluesoft.vetclinicsystem.entities.Pet;
 import com.bluesoft.vetclinicsystem.repositories.PetRepository;
 import com.bluesoft.vetclinicsystem.services.PetService;
@@ -28,9 +29,10 @@ public class PetServiceImpl implements PetService {
 
     @Override
     public Pet savePet(PetDTO petDTO) {
-        Pet per = new Pet();
-        BeanUtils.copyProperties(petDTO, per);
-        Pet savedPet = petRepository.save(per);
+        Pet pet = new Pet();
+        BeanUtils.copyProperties(petDTO, pet);
+        pet.setOwner(new Owner(petDTO.getOwnerId()));
+        Pet savedPet = petRepository.save(pet);
         return savedPet;
     }
 

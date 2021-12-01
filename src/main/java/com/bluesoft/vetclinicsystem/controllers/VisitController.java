@@ -6,20 +6,27 @@ import com.bluesoft.vetclinicsystem.entities.common.DefaultResponse;
 import com.bluesoft.vetclinicsystem.services.VisitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/visits")
+@RequestMapping("/api/visits")
 public class VisitController {
 
     @Autowired
     private VisitService visitService;
 
+    @GetMapping("/{visitId}")
+    public ResponseEntity<?> getVisit(@PathVariable Integer visitId) {
+        try {
+            Visit visit = visitService.getVisit(visitId);
+            return ResponseEntity.ok(visit);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new DefaultResponse("Error Occurred, please contract admin"));
+        }
+    }
+
     @PostMapping
-    public ResponseEntity<?> createPet(@RequestBody VisitDTO visitDTO) {
+    public ResponseEntity<?> createVisit(@RequestBody VisitDTO visitDTO) {
         try {
             Visit savedVisit = visitService.saveVisit(visitDTO);
             return ResponseEntity.ok(savedVisit);

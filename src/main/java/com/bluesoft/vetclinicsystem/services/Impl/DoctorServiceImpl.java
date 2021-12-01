@@ -36,6 +36,18 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
+    public Doctor assignDoctorToClinic(Doctor doctor, Clinic clinic) {
+        doctor.setClinic(clinic);
+        return doctorRepository.save(doctor);
+    }
+
+    @Override
+    public Doctor deassignToClinic(Doctor doctor) {
+        doctor.setClinic(null);
+        return doctorRepository.save(doctor);
+    }
+
+    @Override
     public List<Doctor> getAllByClinicId(Integer clinicId) {
         return doctorRepository.findAllByClinicId(clinicId);
     }

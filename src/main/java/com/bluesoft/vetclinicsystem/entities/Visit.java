@@ -1,6 +1,7 @@
 package com.bluesoft.vetclinicsystem.entities;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "Visit")
@@ -21,6 +22,9 @@ public class Visit {
     @ManyToOne
     @JoinColumn(name = "CLINIC_ID")
     private Clinic clinic;
+
+    @Column(name = "DATE")
+    private LocalDate date;
 
     public Visit() {
     }
@@ -59,5 +63,13 @@ public class Visit {
 
     public void setClinic(Clinic clinic) {
         this.clinic = clinic;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 }
