@@ -10,12 +10,13 @@ import com.bluesoft.vetclinicsystem.services.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/doctors")
-public class DoctorController extends BaseController{
+public class DoctorController extends BaseController {
 
     @Autowired
     private DoctorService doctorService;
@@ -37,7 +38,7 @@ public class DoctorController extends BaseController{
     }
 
     @PostMapping
-    public ResponseEntity<?> createDoctor(@Valid @RequestBody DoctorDTO doctorDTO) {
+    public ResponseEntity<?> createDoctor(@Valid @RequestBody DoctorDTO doctorDTO, @RequestParam MultipartFile doctorPhoto) {
         try {
             Clinic clinic = clinicService.getClinic(doctorDTO.getClinicId());
             if (clinic == null) {
