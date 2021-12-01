@@ -10,16 +10,22 @@ public class Pet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "NAME")
+
+    @Column(name = "NAME", nullable = false, length = 50)
     private String name;
+
     @Column(name = "GENDER")
     private String gender;
+
     @Column(name = "DATE_OF_BIRTH")
     private LocalDate dateOfBirth;
+
     @Column(name = "ANIMAL_KIND")
     private String animalKind;
+
     @Column(name = "PHOTOS")
     private String photos;
+
     @Column(name = "WEIGHT")
     private Double weight;
 
