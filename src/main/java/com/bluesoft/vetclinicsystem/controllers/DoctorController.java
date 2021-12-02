@@ -10,6 +10,7 @@ import com.bluesoft.vetclinicsystem.services.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
@@ -78,4 +79,17 @@ public class DoctorController extends BaseController {
         }
     }
 
+    @PutMapping("/{doctorId}/photo")
+    public ResponseEntity<?> updateDoctorPhoto(@PathVariable Integer doctorId, @RequestParam MultipartFile doctorPhoto) {
+        try {
+            Doctor doctor = doctorService.getDoctor(doctorId);
+            if (doctor == null) {
+                return ResponseEntity.badRequest().body(new DefaultResponse("Doctor can not be found"));
+            }
+            Doctor savedDoctor = doctorService.updateDoctorPhoto(doctor, doctorPhoto);
+            return ResponseEntity.ok(savedDoctor);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(new DefaultResponse("Error Occurred, please contract admin"));
+        }
+    }
 }

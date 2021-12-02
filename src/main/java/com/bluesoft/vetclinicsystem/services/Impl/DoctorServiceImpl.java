@@ -6,10 +6,12 @@ import com.bluesoft.vetclinicsystem.entities.Doctor;
 import com.bluesoft.vetclinicsystem.repositories.DoctorRepository;
 import com.bluesoft.vetclinicsystem.services.DoctorService;
 import com.bluesoft.vetclinicsystem.services.FileUploadService;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
@@ -42,6 +44,18 @@ public class DoctorServiceImpl implements DoctorService {
         Integer doctorId = doctorDTO.getId();
         BeanUtils.copyProperties(doctorDTO, doctor);
         doctor.setClinic(new Clinic(doctorId));
+        return doctorRepository.save(doctor);
+    }
+
+    @Override
+    public Doctor updateDoctorPhoto(Doctor doctor, MultipartFile doctorPhoto) throws IOException {
+        Integer doctorId = doctor.getId();
+        if (doctorPhoto != null) {
+            String fileExtension = FilenameUtils.getExtension(doctorPhoto.getOriginalFilename());
+            String fileName = doctor.getName() + "." + fileExtension;
+            fileUploadService.writeFile(doctorPhoto, UPLOAD_DOCTOR_PHOTOS_DIRECTORY, String.valueOf(doctorId), fileName);
+            doctor.setPhoto(fileName);
+        }
         return doctorRepository.save(doctor);
     }
 
