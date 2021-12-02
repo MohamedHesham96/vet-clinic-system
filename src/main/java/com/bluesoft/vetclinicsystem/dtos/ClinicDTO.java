@@ -1,9 +1,6 @@
 package com.bluesoft.vetclinicsystem.dtos;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 public class ClinicDTO {
 
@@ -19,6 +16,7 @@ public class ClinicDTO {
     @Size(max = 100, message = "Clinic address max size is 11")
     private String address;
 
+    @Pattern(regexp = "^01[0-2|5]{1}[0-9]{8}", message = "Clinic phone is invalid")
     @NotNull(message = "Clinic phone is required")
     @NotBlank(message = "Clinic phone is required")
     @Size(max = 11, message = "Clinic phone max size is 11")

@@ -1,9 +1,6 @@
 package com.bluesoft.vetclinicsystem.dtos;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 public class OwnerDTO {
 
@@ -20,9 +17,10 @@ public class OwnerDTO {
     @Size(max = 100, message = "Owner email max size is 100")
     private String email;
 
+    @Pattern(regexp = "^01[0-2|5]{1}[0-9]{8}", message = "Owner phone is invalid")
     @NotNull(message = "Owner phone is required")
     @NotBlank(message = "Owner phone is required")
-    @Size(max = 11, message = "Owner phone max size is 50")
+    @Size(max = 11, message = "Clinic phone max size is 11")
     private String phone;
 
     @Size(max = 6, message = "Owner gender max size is 6")
