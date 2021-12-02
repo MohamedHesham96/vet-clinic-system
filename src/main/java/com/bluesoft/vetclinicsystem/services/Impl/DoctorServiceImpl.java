@@ -5,10 +5,13 @@ import com.bluesoft.vetclinicsystem.entities.Clinic;
 import com.bluesoft.vetclinicsystem.entities.Doctor;
 import com.bluesoft.vetclinicsystem.repositories.DoctorRepository;
 import com.bluesoft.vetclinicsystem.services.DoctorService;
+import com.bluesoft.vetclinicsystem.services.FileUploadService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +20,12 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Autowired
     DoctorRepository doctorRepository;
+
+    @Autowired
+    FileUploadService fileUploadService;
+
+    @Value("${com.bluesoft.fileupload.doctors-photos}")
+    private String UPLOAD_DOCTOR_PHOTOS_DIRECTORY;
 
     @Override
     public Doctor getDoctor(Integer doctorId) {
@@ -30,8 +39,9 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public Doctor saveDoctor(DoctorDTO doctorDTO) {
         Doctor doctor = new Doctor();
+        Integer doctorId = doctorDTO.getId();
         BeanUtils.copyProperties(doctorDTO, doctor);
-        doctor.setClinic(new Clinic(doctorDTO.getClinicId()));
+        doctor.setClinic(new Clinic(doctorId));
         return doctorRepository.save(doctor);
     }
 
