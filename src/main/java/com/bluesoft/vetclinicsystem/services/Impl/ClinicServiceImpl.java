@@ -38,4 +38,9 @@ public class ClinicServiceImpl implements ClinicService {
         return clinicRepository.findByPhoneAndAddress(phone, address);
     }
 
+    @Override
+    public Boolean existWithName(String clinicName) {
+        return clinicRepository.existsClinicByName(clinicName);
+    }
+
 }

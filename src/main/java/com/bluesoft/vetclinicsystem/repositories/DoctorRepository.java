@@ -12,4 +12,6 @@ public interface DoctorRepository extends JpaRepository<Doctor, Integer> {
 
     @Query("SELECT d FROM Doctor d where d.clinic.id = :clinicId")
     List<Doctor> findAllByClinicId(Integer clinicId);
+
+    boolean existsDoctorByName(String doctorName);
 }

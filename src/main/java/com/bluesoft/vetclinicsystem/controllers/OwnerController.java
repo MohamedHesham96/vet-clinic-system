@@ -37,6 +37,10 @@ public class OwnerController extends BaseController {
     @PostMapping
     public ResponseEntity<?> createOwner(@Valid @RequestBody OwnerDTO ownerDTO) {
         try {
+            boolean isOwnerNameAlreadyExists = ownerService.existWithName(ownerDTO.getName());
+            if (isOwnerNameAlreadyExists) {
+                return ResponseEntity.badRequest().body(new DefaultResponse("Owner name is already exists"));
+            }
             String ownerGender = ownerDTO.getGender();
             if (ownerGender != null && !ownerGender.equals(Gender.MALE.toString()) && !ownerGender.equals(Gender.FEMALE.toString())) {
                 return ResponseEntity.badRequest().body(new DefaultResponse("Gender must be Male or Female"));

@@ -12,4 +12,6 @@ public interface ClinicService {
     Clinic saveClinic(ClinicDTO clinicDTO);
 
     List<Clinic> getByPhoneAndAddress(String phone, String address);
+
+    Boolean existWithName(String clinicName);
 }

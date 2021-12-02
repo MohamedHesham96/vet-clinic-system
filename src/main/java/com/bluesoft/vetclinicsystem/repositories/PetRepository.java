@@ -10,4 +10,6 @@ public interface PetRepository extends JpaRepository<Pet, Integer> {
 
     @Query("SELECT p FROM Pet p where p.owner.id = :ownerId")
     List<Pet> findAllByOwnerId(Integer ownerId);
+
+    boolean existsPetByName(String perName);
 }

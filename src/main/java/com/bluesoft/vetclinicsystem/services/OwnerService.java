@@ -8,4 +8,6 @@ public interface OwnerService {
     Owner getOwner(Integer ownerId);
 
     Owner saveOwner(OwnerDTO ownerDTO);
+
+    boolean existWithName(String ownerName);
 }

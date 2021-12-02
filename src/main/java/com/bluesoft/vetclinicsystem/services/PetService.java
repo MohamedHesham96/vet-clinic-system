@@ -12,4 +12,6 @@ public interface PetService {
     List<Pet> getAllByOwnerId(Integer ownerId);
 
     Pet savePet(PetDTO petDTO);
+
+    boolean existWithName(String petName);
 }

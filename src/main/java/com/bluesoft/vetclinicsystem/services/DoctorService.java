@@ -21,4 +21,6 @@ public interface DoctorService {
     Doctor assignDoctorToClinic(Doctor doctor, Clinic clinic);
 
     Doctor deassignToClinic(Doctor doctor);
+
+    boolean existWithName(String doctorName);
 }

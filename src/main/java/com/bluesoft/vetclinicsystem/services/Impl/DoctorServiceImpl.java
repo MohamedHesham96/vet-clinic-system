@@ -41,9 +41,8 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public Doctor saveDoctor(DoctorDTO doctorDTO) {
         Doctor doctor = new Doctor();
-        Integer doctorId = doctorDTO.getId();
         BeanUtils.copyProperties(doctorDTO, doctor);
-        doctor.setClinic(new Clinic(doctorId));
+        doctor.setClinic(new Clinic(doctorDTO.getClinicId()));
         return doctorRepository.save(doctor);
     }
 
@@ -69,6 +68,11 @@ public class DoctorServiceImpl implements DoctorService {
     public Doctor deassignToClinic(Doctor doctor) {
         doctor.setClinic(null);
         return doctorRepository.save(doctor);
+    }
+
+    @Override
+    public boolean existWithName(String clinicName) {
+        return doctorRepository.existsDoctorByName(clinicName);
     }
 
     @Override

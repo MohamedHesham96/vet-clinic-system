@@ -31,6 +31,10 @@ public class PetController extends BaseController {
     @PostMapping
     public ResponseEntity<?> createPet(@Valid @RequestBody PetDTO petDTO) {
         try {
+            boolean isPetNameAlreadyExists = petService.existWithName(petDTO.getName());
+            if (isPetNameAlreadyExists) {
+                return ResponseEntity.badRequest().body(new DefaultResponse("Pet name is already exists"));
+            }
             String perGender = petDTO.getGender();
             if (perGender != null && !perGender.equals(Gender.MALE.toString()) && !perGender.equals(Gender.FEMALE.toString())) {
                 return ResponseEntity.badRequest().body(new DefaultResponse("Gender must be Male or Female"));

@@ -7,20 +7,15 @@ import com.bluesoft.vetclinicsystem.entities.common.DefaultResponse;
 import com.bluesoft.vetclinicsystem.services.ClinicService;
 import com.bluesoft.vetclinicsystem.services.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/clinics")
-public class ClinicController extends BaseController{
+public class ClinicController extends BaseController {
 
     @Autowired
     private ClinicService clinicService;
@@ -41,6 +36,10 @@ public class ClinicController extends BaseController{
     @PostMapping
     public ResponseEntity<?> createClinic(@Valid @RequestBody ClinicDTO clinicDTO) {
         try {
+            boolean isClinicNameAlreadyExists = clinicService.existWithName(clinicDTO.getName());
+            if (isClinicNameAlreadyExists) {
+                return ResponseEntity.badRequest().body(new DefaultResponse("Clinic name is already exists"));
+            }
             Clinic savedClinic = clinicService.saveClinic(clinicDTO);
             return ResponseEntity.ok(savedClinic);
         } catch (Exception e) {

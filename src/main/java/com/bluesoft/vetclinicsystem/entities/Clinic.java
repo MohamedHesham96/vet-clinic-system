@@ -3,7 +3,7 @@ package com.bluesoft.vetclinicsystem.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "CLINIC")
+@Table(name = "CLINIC", uniqueConstraints = @UniqueConstraint(columnNames = {"NAME"}))
 public class Clinic {
 
     @Id

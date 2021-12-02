@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "OWNER")
+@Table(name = "OWNER", uniqueConstraints = @UniqueConstraint(columnNames = {"NAME"}))
 public class Owner {
 
     @Id

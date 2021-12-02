@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "PET")
+@Table(name = "PET", uniqueConstraints = @UniqueConstraint(columnNames = {"NAME"}))
 public class Pet {
 
     @Id

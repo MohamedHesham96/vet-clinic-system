@@ -41,6 +41,10 @@ public class DoctorController extends BaseController {
     @PostMapping
     public ResponseEntity<?> createDoctor(@Valid @RequestBody DoctorDTO doctorDTO) {
         try {
+            boolean isDoctorNameAlreadyExists = doctorService.existWithName(doctorDTO.getName());
+            if (isDoctorNameAlreadyExists) {
+                return ResponseEntity.badRequest().body(new DefaultResponse("Doctor name is already exists"));
+            }
             Clinic clinic = clinicService.getClinic(doctorDTO.getClinicId());
             if (clinic == null) {
                 return ResponseEntity.badRequest().body(new DefaultResponse("Clinic can not be found"));

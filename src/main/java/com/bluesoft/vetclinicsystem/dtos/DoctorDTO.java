@@ -14,7 +14,7 @@ public class DoctorDTO {
     @Size(max = 50, message = "Doctor name max size is 50")
     private String name;
 
-    @Pattern(regexp = "^01[0-2]{1}[0-9]{8}", message = "Doctor phone is invalid")
+    @Pattern(regexp = "^01[0-2|5]{1}[0-9]{8}", message = "Doctor phone is invalid")
     @NotNull(message = "Doctor phone is required")
     @NotBlank(message = "Doctor phone is required")
     @Size(max = 11, message = "Doctor phone max size is 11")

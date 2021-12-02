@@ -37,6 +37,11 @@ public class PetServiceImpl implements PetService {
     }
 
     @Override
+    public boolean existWithName(String petName) {
+        return petRepository.existsPetByName(petName);
+    }
+
+    @Override
     public List<Pet> getAllByOwnerId(Integer ownerId) {
         return petRepository.findAllByOwnerId(ownerId);
     }

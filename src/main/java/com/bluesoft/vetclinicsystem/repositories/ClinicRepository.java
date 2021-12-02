@@ -12,4 +12,6 @@ public interface ClinicRepository extends JpaRepository<Clinic, Integer> {
             " (c.phone like concat('%', :phone, '%'))" +
             " or (c.address like concat('%', :address, '%'))")
     List<Clinic> findByPhoneAndAddress(String phone, String address);
+
+    boolean existsClinicByName(String clinicName);
 }

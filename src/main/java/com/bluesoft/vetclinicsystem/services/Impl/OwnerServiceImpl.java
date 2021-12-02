@@ -31,4 +31,9 @@ public class OwnerServiceImpl implements OwnerService {
         BeanUtils.copyProperties(ownerDTO, owner);
         return ownerRepository.save(owner);
     }
+
+    @Override
+    public boolean existWithName(String ownerName) {
+        return ownerRepository.existsOwnerByName(ownerName);
+    }
 }
