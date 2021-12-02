@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 @Service
@@ -30,11 +31,13 @@ public class VisitServiceImpl implements VisitService {
 
     @Override
     public Visit saveVisit(VisitDTO visitDTO) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate localDate = LocalDate.parse(visitDTO.getDate(), formatter);
         Visit visit = new Visit();
         visit.setPet(new Pet(visitDTO.getPetId()));
         visit.setDoctor(new Doctor(visitDTO.getDoctorId()));
         visit.setClinic(new Clinic(visitDTO.getClinicId()));
-        visit.setDate(LocalDate.now());
+        visit.setDate(localDate);
         return visitRepository.save(visit);
     }
 }

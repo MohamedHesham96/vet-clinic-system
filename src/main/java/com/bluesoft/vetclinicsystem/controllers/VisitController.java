@@ -9,10 +9,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.format.DateTimeParseException;
 
 @RestController
 @RequestMapping("/api/visits")
-public class VisitController extends BaseController{
+public class VisitController extends BaseController {
 
     @Autowired
     private VisitService visitService;
@@ -32,6 +33,8 @@ public class VisitController extends BaseController{
         try {
             Visit savedVisit = visitService.saveVisit(visitDTO);
             return ResponseEntity.ok(savedVisit);
+        } catch (DateTimeParseException e) {
+            return ResponseEntity.badRequest().body(new DefaultResponse("Incorrect date format, correct format: dd/MM/yyy"));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(new DefaultResponse("Error Occurred, please contract admin"));
         }
