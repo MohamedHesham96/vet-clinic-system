@@ -7,6 +7,7 @@ import com.bluesoft.vetclinicsystem.entities.Pet;
 import com.bluesoft.vetclinicsystem.entities.Visit;
 import com.bluesoft.vetclinicsystem.repositories.VisitRepository;
 import com.bluesoft.vetclinicsystem.services.VisitService;
+import com.sun.media.sound.InvalidDataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,14 +31,17 @@ public class VisitServiceImpl implements VisitService {
     }
 
     @Override
-    public Visit saveVisit(VisitDTO visitDTO) {
+    public Visit saveVisit(VisitDTO visitDTO) throws InvalidDataException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate localDate = LocalDate.parse(visitDTO.getDate(), formatter);
+        LocalDate visitDate = LocalDate.parse(visitDTO.getDate(), formatter);
+        if (visitDate.isBefore(LocalDate.now())) {
+            throw new InvalidDataException("Visit date should be in future");
+        }
         Visit visit = new Visit();
         visit.setPet(new Pet(visitDTO.getPetId()));
         visit.setDoctor(new Doctor(visitDTO.getDoctorId()));
         visit.setClinic(new Clinic(visitDTO.getClinicId()));
-        visit.setDate(localDate);
+        visit.setDate(visitDate);
         return visitRepository.save(visit);
     }
 }

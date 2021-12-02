@@ -3,6 +3,7 @@ package com.bluesoft.vetclinicsystem.controllers;
 import com.bluesoft.vetclinicsystem.dtos.PetDTO;
 import com.bluesoft.vetclinicsystem.entities.Pet;
 import com.bluesoft.vetclinicsystem.entities.common.DefaultResponse;
+import com.bluesoft.vetclinicsystem.entities.common.Gender;
 import com.bluesoft.vetclinicsystem.services.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +31,10 @@ public class PetController extends BaseController {
     @PostMapping
     public ResponseEntity<?> createPet(@Valid @RequestBody PetDTO petDTO) {
         try {
+            String perGender = petDTO.getGender();
+            if (perGender != null && !perGender.equals(Gender.MALE.toString()) && !perGender.equals(Gender.FEMALE.toString())) {
+                return ResponseEntity.badRequest().body(new DefaultResponse("Gender must be Male or Female"));
+            }
             Pet savedPet = petService.savePet(petDTO);
             return ResponseEntity.ok(savedPet);
         } catch (Exception e) {
